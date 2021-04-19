@@ -4,20 +4,20 @@
 	{% with messages = get_flashed_messages() %}  
 		{% if messages %}  
 			{% for message in messages %}
-				<div class="alert alert-warning text-center" role="alert" style="padding-top: 80px;">
-					<p>{{ message }}</p>
+				<div class="alert alert-warning text-center" role="alert" style="padding-top: 64px;">
+					<p class="mb-0 mt-3">{{ message }}</p>
 				</div>
 			{% endfor %}  
 		{% endif %}  
 	{% endwith %}
 	<div class="alert alert-warning text-center" role="alert" id="alert"></div>
 	<div class="container px-4 px-md-3">
-		<div class="row align-items-lg-center">
-			<div class="col-9 mx-auto col-md-4 order-md-4 col-lg-5">
+		<div class="row align-items-lg-center align-items-md-center">
+			<div class="col-9 mx-auto col-md-6 order-md-4 col-lg-5">
 				<img src="{{ url_for('static', filename='Agent-Crop-1000x1000.png') }}" alt="" height="500" width="500" class="img-fluid">
 			</div>
 			<div class="col justify-content-center pt-4">
-				<h1 class="mb-3 custom-font">Get Instant & Accurate Disease Detection with Agent Crop</h1>
+				<h1 class="mb-3 custom-font">Get Instant & Accurate Crop Disease Detection with Agent Crop</h1>
 				<form action = "/" method = "POST" enctype = "multipart/form-data">
 					<div>
 						<div class="mb-0" style="max-width: 300px;">
@@ -36,41 +36,5 @@
 		</div>
 		<div id="image_preview" class="row mt-3 justify-content-center"></div>
 	</div>
-	<script>
-		var validate_and_preview = function() {
-			document.getElementById('alert').removeAttribute('style');
-			document.getElementById('alert').innerHTML = '';
-			var total_files = document.getElementById("files").files.length;
-			var total_size = 0
-			for (var i = 0; i < total_files; i++) {
-				var fsize = document.getElementById("files").files.item(i).size; // file size in bytes
-                var fsize_mb = fsize / (1024 * 1024); // file size in MB
-				total_size += fsize_mb
-			}
-			if (total_size >= 50) {
-				document.getElementById('alert').setAttribute('style', 'padding-top: 80px;');
-				document.getElementById('alert').innerHTML = '<p>You uploaded files larger than 50 MB. The Total Maximum file size should be 50 MB.</p>';
-				document.getElementById('files').value = "";
-				return;
-			}
-			for (var i = 0; i < total_files; i++) {
-				var filename = document.getElementById("files").files[i].name;
-				var file_list = filename.split(".");
-				var file_ext = file_list[file_list.length - 1].toUpperCase();
-				var ext = ['JPG', 'JPEG', 'PNG'];
-				if (ext.includes(file_ext)) {
-					if (i === 0) {
-						document.getElementById('image_preview').innerHTML += '<h4 class="pb-3">Image Preview:</h4>'
-					}
-					document.getElementById('image_preview').innerHTML += '<div class="card custom-bg-color card-custom mx-2 mb-3"><img src="' + URL.createObjectURL(event.target.files[i]) + '" class="card-img-top" alt="Crop Image" style="padding-top: 12px; max-height:150px; object-fit: cover;"><div class="card-body"><p class="card-text"><strong>Filename:</strong> ' + filename + '</p></div></div>';
-				}
-				else {
-					document.getElementById('alert').setAttribute('style', 'padding-top: 80px;');
-					document.getElementById('alert').innerHTML = '<p>You uploaded files other than PNG or JPG/JPEG. We currently supports PNG or JPG/JPEG Image Files Only.</p>';
-					document.getElementById('files').value = "";
-					return;
-				}
-			}
-		}
-	</script>
+	<script src="{{ url_for('static', filename='main.js') }}" defer></script>
 {% endblock %}
