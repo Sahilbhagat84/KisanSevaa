@@ -6,7 +6,7 @@ import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
 from PIL import Image
-
+import gdown
 from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for
 
 from werkzeug.utils import secure_filename
@@ -53,6 +53,11 @@ disease_map = {0: 'Apple: Apple Scab',
         39: 'Tomato: Yellow Leaf Curl Virus',
         40: 'Tomato: Mosaic Virus',
         41: 'Tomato: Healthy'}
+
+if not os.path.exists('AgentCropKeras.h5'):
+    url='https://drive.google.com/uc?id=1RptBAVHhoGcHydWHkRFpflj3WG8BMDJo'
+    output = 'AgentCropKeras.h5'
+    gdown.download(url, output, quiet=False)
 
 model = load_model('AgentCropKeras.h5')
 if not os.path.exists('./static/test'):
