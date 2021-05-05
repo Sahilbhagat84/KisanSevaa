@@ -8,7 +8,6 @@ from keras.models import load_model
 from PIL import Image
 import gdown
 from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for
-
 from werkzeug.utils import secure_filename
 
 disease_map = {0: 'Apple: Apple Scab',
@@ -54,12 +53,12 @@ disease_map = {0: 'Apple: Apple Scab',
         40: 'Tomato: Mosaic Virus',
         41: 'Tomato: Healthy'}
 
-if not os.path.exists('AgentCropKeras.h5'):
-    url='https://drive.google.com/uc?id=1RptBAVHhoGcHydWHkRFpflj3WG8BMDJo'
-    output = 'AgentCropKeras.h5'
+if not os.path.exists('AgentCropKeras_v1.h5'):
+    url='https://drive.google.com/uc?id=1JNggWQ9OJFYnQpbsFXMrVu-E-sR3VnCu'
+    output = 'AgentCropKeras_v1.h5'
     gdown.download(url, output, quiet=False)
 
-model = load_model('AgentCropKeras.h5')
+model = load_model('AgentCropKeras_v1.h5')
 if not os.path.exists('./static/test'):
         os.makedirs('./static/test')
 
@@ -75,7 +74,7 @@ def predict(test_dir):
         x_col = 'Image',
         y_col = None,
         class_mode = None,
-        target_size = (150, 150),
+        target_size = (256, 256),
         batch_size = 20,
         shuffle = False
     )
@@ -120,12 +119,12 @@ def get_disease():
         if folder_num >= 1000000:
             folder_num = 0
         # check if the post request has the file part
-        if 'files[]' not in request.files:
+        if 'hiddenfiles[]' not in request.files:
             flash('No file part')
             return redirect(request.url)
         # Create a new folder for every new file uploaded,
         # so that concurrency can be mainatained
-        files = request.files.getlist('files[]')
+        files = request.files.getlist('hiddenfiles[]')
         app.config['UPLOAD_FOLDER'] = "./static/test"
         app.config['UPLOAD_FOLDER'] = app.config['UPLOAD_FOLDER'] + '/predict_' + str(folder_num).rjust(6, "0")
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -146,7 +145,6 @@ def get_disease():
                 folder = app.config['UPLOAD_FOLDER'],
                 predictions = diseases)
         except:
-            flash("Something Went Wrong! Try Refreshing the Page!")
             return redirect('/')
         
     return render_template('index.html')

@@ -4,7 +4,7 @@
 
 # Agent-Crop
 This is the repository for the project Agent Crop. Agent Crop is used to identify the diseases in the crops and also suggests possible cure for them.  
-The Pre-Trained Model can be found at: https://drive.google.com/file/d/1RptBAVHhoGcHydWHkRFpflj3WG8BMDJo/view?usp=sharing  
+The link for the Pre-Trained Model can be found in the app.py file.
 
 Here is the list of crops and the diseases we can support at this moment:
 
@@ -18,18 +18,18 @@ Here is the list of crops and the diseases we can support at this moment:
 - Cherry
   - Powdery Mildew
   - Healthy
-- Corn(Maize)
+- Corn (Maize)
   - Grey Leaf Spot
   - Common Rust of Maize
   - Northern Leaf Blight
   - Healthy
 - Grape
   - Black Rot
-  - Black Measles(Esca)
-  - Leaf Blight(Isariopsis Leaf Spot)
+  - Black Measles (Esca)
+  - Leaf Blight (Isariopsis Leaf Spot)
   - healthy
 - Orange
-  - Huanglongbing(Citrus Greening)
+  - Huanglongbing (Citrus Greening)
 - Peach
   - Bacterial spot
   - healthy
