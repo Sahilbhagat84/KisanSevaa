@@ -6,6 +6,21 @@
 This is the repository for the project Agent Crop. Agent Crop is used to identify the diseases in the crops and also suggests possible cure for them.  
 The link for the Pre-Trained Model can be found in the app.py file.
 
+The api can be accessed at the endpoint: https://agentcrop.azurewebsites.net/api/predict  
+The request should have 'files' part and should only include png and jpg/jpeg files of size less than 50 MB.
+The api returns the json response in the following format:
+
+```json
+{
+  "image_1": {
+    "prediction": "prediction_1"
+  },
+  "image_2": {
+    "prediction": "prediction_2"
+  }
+}
+```
+
 Here is the list of crops and the diseases we can support at this moment:
 
 - Apple

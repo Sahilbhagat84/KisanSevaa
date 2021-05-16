@@ -145,4 +145,13 @@ var validate_and_preview = function() {
     resizeAndBlob();
 }
 
+var submit_form = function() {
+    if (document.getElementById("hiddenfiles").value === "") {
+        document.getElementById('alert').setAttribute('style', 'padding-top: 64px;');
+        document.getElementById('alert').innerHTML = '<p class="mb-0 mt-3">Please, select some Images!</p>';
+        return false;
+    }
+    return true;
+}
+
 document.getElementById("files").addEventListener("change", validate_and_preview);
