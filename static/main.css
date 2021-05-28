@@ -24,8 +24,11 @@ body {
 .custom-font {
     font-family: 'Signika', sans-serif;
 }
-.card-custom {
+.card-custom-preview {
     max-width: 250px;
+    width: 25rem;
+}
+.card-custom {
     width: 25rem;
 }
 .crops-list-tab {

@@ -13,10 +13,16 @@ The api returns the json response in the following format:
 ```json
 {
   "image_1": {
-    "prediction": "prediction_1"
+    "description": "description_1",
+    "prediction": "prediction_1",
+    "source": "sorce_link_1",
+    "symptoms": "symptoms_1"
   },
   "image_2": {
-    "prediction": "prediction_2"
+    "description": "description_2",
+    "prediction": "prediction_2",
+    "source": "sorce_link_2",
+    "symptoms": "symptoms_2"
   }
 }
 ```
@@ -64,7 +70,7 @@ Here is the list of crops and the diseases we can support at this moment:
   - Healthy
 - Soybean
   - Healthy
-  - Squash
+- Squash
   - Powdery Mildew
 - Strawberry
   - Leaf Scorch
