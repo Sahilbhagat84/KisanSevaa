@@ -16,9 +16,9 @@ The request should have 'files' part and should only include png and jpg/jpeg fi
 <html>
   <body>
     <form action="https://agentcrop.azurewebsites.net/api/predict" method = "POST" enctype = "multipart/form-data">
-        <input type="file" name="files" multiple required />
-        <input type="submit" value="submit" />
-      </form>
+      <input type="file" name="files" multiple required />
+      <input type="submit" value="submit" />
+    </form>
   </body>
 </html>
 ```
