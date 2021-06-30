@@ -7,7 +7,22 @@ This is the repository for the project Agent Crop. Agent Crop is used to identif
 The link for the Pre-Trained Model can be found in the app.py file.
 
 The api can be accessed at the endpoint: https://agentcrop.azurewebsites.net/api/predict  
-The request should have 'files' part and should only include png and jpg/jpeg files of size less than 50 MB.
+The request should have 'files' part and should only include png and jpg/jpeg files of size less than 50 MB.  
+
+## How to Implement API in your App  
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="https://agentcrop.azurewebsites.net/api/predict" method = "POST" enctype = "multipart/form-data">
+        <input type="file" name="files" multiple required />
+        <input type="submit" value="submit" />
+      </form>
+  </body>
+</html>
+```
+
 The api returns the json response in the following format:
 
 ```json
