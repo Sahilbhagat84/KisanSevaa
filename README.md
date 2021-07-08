@@ -14,12 +14,85 @@ The request should have 'files' part and should only include png and jpg/jpeg fi
 ```html
 <!DOCTYPE html>
 <html>
-  <body>
-    <form action="https://agentcrop.azurewebsites.net/api/predict" method = "POST" enctype = "multipart/form-data">
-      <input type="file" name="files" multiple required />
-      <input type="submit" value="submit" />
-    </form>
-  </body>
+    <body>
+        <form action="https://agentcrop.azurewebsites.net/api/predict" method = "POST" enctype = "multipart/form-data" id="api-form">
+            <input type="file" name="files" multiple required />
+            <input type="submit" value="submit" />
+        </form>
+        <div id="show-data"></div>
+        <script>
+            // Function to work with your data.
+            function workWithData(data) {
+
+                // Here you can simply show data using iterating through it or you can do whatever you want with it.
+                document.getElementById('show-data').innerHTML = "";
+                for (let imageName in data) {
+                    document.getElementById('show-data').innerHTML += "<h3>" + imageName + ": </h3>";
+                    for (let detail in data[imageName]) {
+                        document.getElementById('show-data').innerHTML += "<p><strong>" + detail.replace(detail[0], detail[0].toUpperCase()) + ": </strong>" + data[imageName][detail] + "</p>";
+                    }
+                }
+            }
+
+            // Function to handle submit event.
+            function handleFormSubmit(event) {
+                
+                // Prevent default behaviour of submit event.
+                event.preventDefault();
+
+                // Get the form element and url.
+                const form = event.currentTarget;
+                const url = form.action;
+                
+                // Define formData object to store the images and later send it to API.
+                const formData = new FormData();
+
+                // Find file input element.
+                const photos = document.querySelector('input[type="file"][multiple]');
+                
+                // Iterate through file imput element and save images to the formData object.
+                for (let i = 0; i < photos.files.length; i++) {
+                    formData.append('files', photos.files[i]);
+                }
+
+                // Below we use fetch to send formData to the API.
+                fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    origin: "*"
+                })
+                .then(
+                    // After that we get response and work with it.
+                    function(response) {
+
+                        // If response's ok property is false, then shows error and return.
+                        if (!response.ok) {
+                            console.log('Looks like there was a problem. Status Code: ' + response.status);
+                            return;
+                        }
+
+                        // Now we parse reponse to the json and then get the data object.
+                        response.json().then(function(data) {
+
+                            // We will pass data object to external function to work with it.
+                            workWithData(data);
+                        });
+                    }
+                )
+                .catch(function(err) {
+                    
+                    // If any error occurs the it will show it.
+                    console.log('Fetch Error :-S', err);
+                });
+            }
+
+            // Get the form element using it's id.
+            const apiForm = document.getElementById("api-form");
+
+            // Add event listner on submit event.
+            apiForm.addEventListener("submit", handleFormSubmit);
+        </script>
+    </body>
 </html>
 ```
 
@@ -27,18 +100,18 @@ The api returns the json response in the following format:
 
 ```json
 {
-  "image_1": {
-    "description": "description_1",
-    "prediction": "prediction_1",
-    "source": "sorce_link_1",
-    "symptoms": "symptoms_1"
-  },
-  "image_2": {
-    "description": "description_2",
-    "prediction": "prediction_2",
-    "source": "sorce_link_2",
-    "symptoms": "symptoms_2"
-  }
+    "image_1": {
+        "description": "description_1",
+        "prediction": "prediction_1",
+        "source": "sorce_link_1",
+        "symptoms": "symptoms_1"
+    },
+    "image_2": {
+        "description": "description_2",
+        "prediction": "prediction_2",
+        "source": "sorce_link_2",
+        "symptoms": "symptoms_2"
+    }
 }
 ```
 
