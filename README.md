@@ -1,15 +1,16 @@
-<p align="center">
+<div align="center">
   <img width=300 height=300 src="static/Agent-Crop-1000x1000.png" alt="Agent Crop Logo">
-</p>
+</div>
 
 # Agent-Crop
 This is the repository for the project Agent Crop. Agent Crop is used to identify the diseases in the crops and also suggests possible cure for them.  
 The link for the Pre-Trained Model can be found in the app.py file.
 
-The api can be accessed at the endpoint: https://agentcrop.azurewebsites.net/api/predict  
+The API can be accessed at the endpoint: https://agentcrop.azurewebsites.net/api/predict  
 The request should have 'files' part and should only include png and jpg/jpeg files of size less than 50 MB.  
 
-## How to Implement API in your App  
+<details>
+<summary><span style="font-size:20px;">Implement API in your App</span></summary>
 
 ```html
 <!DOCTYPE html>
@@ -96,7 +97,7 @@ The request should have 'files' part and should only include png and jpg/jpeg fi
 </html>
 ```
 
-The api returns the json response in the following format:
+The API returns the json response in the following format:
 
 ```json
 {
@@ -115,7 +116,10 @@ The api returns the json response in the following format:
 }
 ```
 
-Here is the list of crops and the diseases we can support at this moment:
+</details>
+
+<details>
+<summary><span style="font-size:20px;">List of Crops and Diseases supported</span></summary>
 
 - Apple
   - Apple Scab
@@ -174,3 +178,5 @@ Here is the list of crops and the diseases we can support at this moment:
   - Yellow Leaf Curl Virus
   - Mosaic Virus
   - Healthy
+
+</details>
