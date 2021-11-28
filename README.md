@@ -3,7 +3,7 @@
 </div>
 
 # Agent-Crop
-Agent Crop is a Crop Disease detection system and Cure suggestion system. It also provides details about the symptoms and the discription of the perticular disease.  
+Agent Crop is a Crop Disease detection system and Cure suggestion system. It also provides details about the symptoms and the description of the particular disease.  
 - The link for the Pre-Trained Model can be found in the [app.py](./app.py) file.
 - The API can be accessed at the endpoint: https://agentcrop.azurewebsites.net/api/predict  
 - The API request should have 'files' part and should only include png and jpg/jpeg files of size less than 50 MB.  
@@ -37,7 +37,7 @@ Agent Crop is a Crop Disease detection system and Cure suggestion system. It als
             // Function to handle submit event.
             function handleFormSubmit(event) {
                 
-                // Prevent default behaviour of submit event.
+                // Prevent default behavior of submit event.
                 event.preventDefault();
 
                 // Get the form element and url.
@@ -50,7 +50,7 @@ Agent Crop is a Crop Disease detection system and Cure suggestion system. It als
                 // Find file input element.
                 const photos = document.querySelector('input[type="file"][multiple]');
                 
-                // Iterate through file imput element and save images to the formData object.
+                // Iterate through file input element and save images to the formData object.
                 for (let i = 0; i < photos.files.length; i++) {
                     formData.append('files', photos.files[i]);
                 }
@@ -71,7 +71,7 @@ Agent Crop is a Crop Disease detection system and Cure suggestion system. It als
                             return;
                         }
 
-                        // Now we parse reponse to the json and then get the data object.
+                        // Now we parse response to the json and then get the data object.
                         response.json().then(function(data) {
 
                             // We will pass data object to external function to work with it.
@@ -89,7 +89,7 @@ Agent Crop is a Crop Disease detection system and Cure suggestion system. It als
             // Get the form element using it's id.
             const apiForm = document.getElementById("api-form");
 
-            // Add event listner on submit event.
+            // Add event listener on submit event.
             apiForm.addEventListener("submit", handleFormSubmit);
         </script>
     </body>
@@ -103,13 +103,13 @@ The API returns the json response in the following format:
     "image_1": {
         "description": "description_1",
         "prediction": "prediction_1",
-        "source": "sorce_link_1",
+        "source": "source_link_1",
         "symptoms": "symptoms_1"
     },
     "image_2": {
         "description": "description_2",
         "prediction": "prediction_2",
-        "source": "sorce_link_2",
+        "source": "source_link_2",
         "symptoms": "symptoms_2"
     }
 }

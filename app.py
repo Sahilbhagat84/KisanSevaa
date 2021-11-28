@@ -286,7 +286,7 @@ def clean():
                 shutil.rmtree(folder)
                 folders_list.remove(folder)
     except:
-        flash("Something Went Wrong! Coudn't delete data!")
+        flash("Something Went Wrong! couldn't delete data!")
 
 @app.route('/', methods=['GET', 'POST'])
 
@@ -302,7 +302,7 @@ def get_disease():
             flash('No files part!')
             return redirect(request.url)
         # Create a new folder for every new file uploaded,
-        # so that concurrency can be mainatained
+        # so that concurrency can be maintained
         files = request.files.getlist('hiddenfiles')
         app.config['UPLOAD_FOLDER'] = "./static/test"
         app.config['UPLOAD_FOLDER'] = app.config['UPLOAD_FOLDER'] + '/predict_' + str(folder_num).rjust(6, "0")
@@ -349,7 +349,7 @@ def api_predict():
     if 'files' not in request.files:
         return {"Error": "No files part found."}
     # Create a new folder for every new file uploaded,
-    # so that concurrency can be mainatained
+    # so that concurrency can be maintained
     files = request.files.getlist('files')
     app.config['UPLOAD_FOLDER'] = "./static/test"
     app.config['UPLOAD_FOLDER'] = app.config['UPLOAD_FOLDER'] + '/predict_' + str(folder_num).rjust(6, "0")
