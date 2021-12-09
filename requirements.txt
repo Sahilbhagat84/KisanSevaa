@@ -8,3 +8,4 @@ werkzeug
 scipy==1.4.1
 pillow
 gdown
+Flask-APScheduler
