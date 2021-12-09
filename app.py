@@ -1,13 +1,14 @@
 import os
 import shutil
 import time
+from flask_apscheduler import APScheduler
 import numpy as np
 import pandas as pd
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
 from PIL import Image
 import gdown
-from flask import Flask, render_template, request, redirect, flash, send_from_directory, url_for
+from flask import Flask, render_template, request, redirect, flash, send_from_directory
 from werkzeug.utils import secure_filename
 
 disease_map = {
@@ -278,6 +279,13 @@ folders_list = []
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# initialize scheduler
+scheduler = APScheduler()
+scheduler.api_enabled = True
+scheduler.init_app(app)
+
+# Adding Interval Job to delete folder
+@scheduler.task('interval', id='clean', seconds=1800, misfire_grace_time=900)
 def clean():
     global folders_list
     try:
@@ -285,15 +293,17 @@ def clean():
             if (time.time() - os.stat(folder).st_ctime) / 3600 > 1:
                 shutil.rmtree(folder)
                 folders_list.remove(folder)
+                print("\n***************Removed Folder '{}'***************\n".format(folder))
     except:
         flash("Something Went Wrong! couldn't delete data!")
+
+scheduler.start()
 
 @app.route('/', methods=['GET', 'POST'])
 
 def get_disease():
     global folder_num
     global folders_list
-    clean()
     if request.method == 'POST':
         if folder_num >= 1000000:
             folder_num = 0
@@ -342,7 +352,6 @@ def favicon():
 def api_predict():
     global folder_num
     global folders_list
-    clean()
     if folder_num >= 1000000:
             folder_num = 0
     # check if the post request has the file part
