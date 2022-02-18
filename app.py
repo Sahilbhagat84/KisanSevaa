@@ -123,7 +123,6 @@ def get_disease():
                 folder = app.config['UPLOAD_FOLDER'],
                 predictions = diseases)
         except:
-            flash("Error!")
             return redirect('/')
         
     return render_template('index.html')
