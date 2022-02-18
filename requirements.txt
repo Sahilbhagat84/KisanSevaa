@@ -1,9 +1,7 @@
 Flask
 numpy
 pandas
-keras
 tensorflow-cpu
-h5py
 werkzeug
 scipy
 pillow
