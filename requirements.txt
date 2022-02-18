@@ -5,5 +5,5 @@ tensorflow-cpu
 werkzeug
 scipy
 pillow
-gdown
+requests
 Flask-APScheduler

@@ -6,19 +6,27 @@ import numpy as np
 import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import load_model
-from PIL import Image
-import gdown
+import requests
 from flask import Flask, render_template, request, redirect, flash, send_from_directory
 from werkzeug.utils import secure_filename
 
 from data import disease_map, details_map
 
-if not os.path.exists('AgentCropKeras_v1.h5'):
-    url='https://drive.google.com/uc?id=1JNggWQ9OJFYnQpbsFXMrVu-E-sR3VnCu'
-    output = 'AgentCropKeras_v1.h5'
-    gdown.download(url, output, quiet=False)
+# Download Model File
+if not os.path.exists('model.h5'):
+    print("Downloading model...")
+    url = "https://drive.google.com/uc?id=1JNggWQ9OJFYnQpbsFXMrVu-E-sR3VnCu&confirm=t"
+    r = requests.get(url, stream=True)
+    with open('./model.h5', 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024):
+            if chunk:
+                f.write(chunk)
+    print("Finished downloading model.")
 
-model = load_model('AgentCropKeras_v1.h5')
+# Load model from downloaded model file
+model = load_model('model.h5')
+
+# Create folder to save images temporarily
 if not os.path.exists('./static/test'):
         os.makedirs('./static/test')
 
